@@ -45,13 +45,12 @@ time, displacement = mass_spring_damper(mass, damping_coefficient, spring_consta
 
 
 # Plotting
-##  Import additional packages  ##
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-## Configure style and size
+# Configure style and size
 sns.set_style("whitegrid")  # Apply a clean style
-plt.figure(figsize=(10,   6))  # Set the figure size
+plt.figure(figsize=(10,  6))  # Set the figure size
 
 # Create Plot with label
 sns.lineplot(x=time, y=displacement, label='Displacement')  # Correct usage of seaborn for line plots
@@ -66,7 +65,6 @@ plt.legend(fontsize=12)  # This will now recognize the label provided above
 plt.show()
 
 # Save plots
-## Import additional packages
 import tikzplotlib
 import os  # To add paths to folders.
 
@@ -79,4 +77,3 @@ if not os.path.exists(output_dir):
 
 # Save the plot as a TikZ file
 tikzplotlib.save(os.path.join(output_dir, 'my_plot.tex'))
-
