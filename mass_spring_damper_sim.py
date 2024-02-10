@@ -1,5 +1,10 @@
+# All Packages
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+#import seaborn as sns
+#import tikzplotlib
+#import os                        # To add paths to folders.
+
 
 def mass_spring_damper(m, c, k, external_force, dt, num_steps):
     # Initialize arrays to store values
@@ -35,24 +40,43 @@ external_force = lambda t: force_amplitude if t >= 1.0 else 0.0
 # Simulate the system
 time, displacement = mass_spring_damper(mass, damping_coefficient, spring_constant, external_force, time_step, num_steps)
 
-# Set font size
-plt.rcParams.update({'font.size': 14})
 
-# Set figure size to 210mm width
-fig, ax = plt.subplots(figsize=(8.27, 5.82))  # A5 size in inches (210mm x 148mm)
 
-# Plot the results
-ax.plot(time, displacement)
-ax.set_xlabel('Time (s)')
-ax.set_ylabel('Displacement (m)')
-ax.set_title('Mass-Spring-Damper System Response')
-ax.grid(True)
 
-# Choose whether to display or save the figure
-save_figure = True  # Change to False if you want to display the figure
-if save_figure:
-    pgf_filepath = 'mass_spring_damper_response.pgf'
-    fig.savefig(pgf_filepath, format='pgf', bbox_inches='tight')
-    print(f"Figure saved as {pgf_filepath}")
-else:
-    plt.show()
+
+# Plotting
+##  Import additional packages  ##
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+## Configure style and size
+sns.set_style("whitegrid")  # Apply a clean style
+plt.figure(figsize=(10,  6))  # Set the figure size
+
+## Create Plot
+sns.plot(time, displacement)
+
+## Plotting options
+plt.xlabel('Time in seconds [mm]', fontsize=14)
+plt.ylabel('Displacment in millimeters [mm]', fontsize=14)
+plt.title('Behavior of a Mass-Spring-Damper System', fontsize=18)
+plt.legend(fontsize=12)
+
+
+
+# Save plots
+## Import additonal packages
+import tikzplotlib
+import os                        # To add paths to folders.
+
+
+# Specify the directory where you want to save the plot
+output_dir = "figures/"
+
+
+# Check if the directory exists, if not, create it
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+tikzplotlib.save(os.path.join(output_dir, 'my_plot.tex'))
+
