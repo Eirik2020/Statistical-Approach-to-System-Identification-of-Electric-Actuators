@@ -1,30 +1,27 @@
-import numpy as np
+import os
 import matplotlib.pyplot as plt
+import numpy as np
 
-## reset defaults
-plt.rcdefaults()
+# Create the "figures" folder if it doesn't exist
+if not os.path.exists('figures'):
+    os.makedirs('figures')
 
-## Set up LaTeX fonts
-plt.rcParams.update({
-    "text.usetex": True,
-    "font.family": "serif",
-    "font.serif": ["Computer Modern Roman"],
-    "font.size": 14,
-    })
+# Sample data
+x = np.linspace(0, 2 * np.pi, 100)
+y = np.sin(x)
 
-## Data for plotting
-t = np.arange(0.0, 2.0, 0.01)
-s = 1 + np.sin(2 * np.pi * t)
 
-fig, ax = plt.subplots(figsize=(4.5,3))
 
-ax.plot(t, s, linewidth=3)
+# Create the plot
+plt.figure(figsize=(8, 5))
+plt.plot(x, y, label=r'$\sin(x)$')
+plt.title('Sine Function')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
 
-ax.set(xlabel=r'time $\tau_p$ [$\mu$s]', ylabel=r'voltage (mV)')
-ax.set(title=r'$ E = m c^2 $')
-
-#fig.savefig("test600.png", format="png", dpi=600, bbox_inches="tight")
-fig.savefig("test1200t.eps", format="eps", dpi=1200, bbox_inches="tight", transparent=True)
-#fig.savefig("test1200t.pdf", format="pdf", dpi=1200, bbox_inches="tight", transparent=True)
-
+# Show the plot
 plt.show()
+
+# Save as a PGF file in the "figures" folder
+plt.savefig(os.path.join('figures', 'plot.pgf'), format='pgf')
