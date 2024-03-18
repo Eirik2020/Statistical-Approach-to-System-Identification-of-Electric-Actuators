@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 // Define analog pin
-const int analogPin = A0;
+const int analogPin = A15;
 
 void setup() {
  // Initialize serial communication at 9600 baud
