@@ -6,21 +6,21 @@ import pandas as pd
 
 # Configuration
 port = 'COM3'
-csv_file = 'data_log.csv'
-log_time = 10
-n_samples = 100
-
+csv_file = 'load_cell_cal.csv'
+#log_time = 40
+n_samples = 3000
 
 
 # Open the serial port
 ser = serial.Serial(port, 9600, timeout=1)
+print("Connection estiablised.")
 
 # Initialize an empty list to store the data
 data = []
 
 # Start time
 start_time = time.time()
-
+print("Starting recording...")
 # Collect data
 for i in range(n_samples):
     # Read a line from the serial port
@@ -28,11 +28,16 @@ for i in range(n_samples):
     # Decode the line from bytes to string
     value = line.decode('utf-8').strip()
     data.append(value)
-    time.sleep( log_time / n_samples ) # Wait for set time between samples
+    #time.sleep( log_time / n_samples ) # Wait for set time between samples
 
 # Close the serial port
 ser.close()
 
+time_tot = time.time() - start_time
+print("Recording Complete.")
+print("Time spent logging: ")
+print(time_tot)
+print("Storing data...")
 
 
 # Check if the file exists
@@ -55,5 +60,5 @@ df.to_csv(csv_file, index=False)
 
 # Report
 print("-------------------------------------------------------------------")
-print("Data entry " + column_index_str + " logged and saved to " + csv_file + " with log time {} seconds and {} samples.".format(log_time, n_samples))
+print("Data entry " + column_index_str + " logged and saved to " + csv_file + " with log time {} seconds and {} samples.".format(time_tot, n_samples))
 print("-------------------------------------------------------------------")
